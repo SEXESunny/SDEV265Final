@@ -50,8 +50,10 @@ class PreviousWeeksSignInSignOut:
             total_days = (end_date - start_date).days
             # Divide by 7 for amount of weeks and add 1 to account for any remaining days that are less than a
             # week, thus counting it as a full week.
-            return (total_days // 7) + 1
-
+            total_weeks = total_days // 7
+            if total_days % 7 != 0:
+                total_weeks += 1
+            return total_weeks
     # This method is used to retrieve the date ranges per page.
     def get_week_date_range(self, page_number, page_size=1):
         with self.db.connect() as conn:
