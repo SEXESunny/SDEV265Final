@@ -1,11 +1,9 @@
 from Controllers.dummy_data_controller import DummyDataController
-from PyQt5.QtWidgets import *
-from Windows.log_in_window import *;
+from PySide6 import QtCore, QtGui, QtWidgets
+from Windows.log_in_window import LogInWindow
 
 
 def main():
-
-    
     # Remove the comment lines if you wish to delete the entries
     # db_path = 'TimesRecord.db'
     # dummy_data_controller = DummyDataController(db_path)
@@ -15,13 +13,13 @@ def main():
     # Initialize DummyDataController and create tables and populate data
     # dummy_data_controller.populate_dummy_data()
 
-    app = QApplication([])
+    app = QtWidgets.QApplication([])
 
     window = LogInWindow()
 
     window.show()
-    app.exec_()
-   
+    app.exec()
+
 
 if __name__ == "__main__":
     main()
