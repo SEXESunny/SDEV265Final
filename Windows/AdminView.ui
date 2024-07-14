@@ -136,7 +136,7 @@ letter-spacing: .7px;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>../IMGs/edit_time.png</pixmap>
+         <pixmap>./IMGs/edit_time.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -330,7 +330,7 @@ border: 2px solid rgb(185, 184, 186);
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../IMGs/subbaroo_long_name.jpg</pixmap>
+       <pixmap>./IMGs/subbaroo_long_name.jpg</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
