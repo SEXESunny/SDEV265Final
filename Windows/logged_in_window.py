@@ -32,11 +32,11 @@ class LoggedInWindow(QtWidgets.QMainWindow):
             self.ui.setLayout(layout)
 
         ScaleUI(self, 1.5)
-
+        
 
         # Set name and department labels
         self.set_labels(badgeNum)
-
+        
         # Connect buttons to their respective functions
         self.ui.clock_in_out_button.clicked.connect(lambda: self.clock_in_out(badgeNum))
         self.ui.admin_view_button.clicked.connect(lambda: self.admin_log_in(badgeNum))
@@ -45,7 +45,8 @@ class LoggedInWindow(QtWidgets.QMainWindow):
         # Set up tables and load data
         self.setup_tables()
         self.load_tables_data(badgeNum)
-
+        # Set the clocked in label
+        self.change_clocked_in_label(badgeNum)
         # Show the main window
         self.show()
 
@@ -63,6 +64,31 @@ class LoggedInWindow(QtWidgets.QMainWindow):
                 self.ui.name_label.setText(str(item[1]))
                 self.ui.department_label.setText(str(item[2]))
 
+    #Sets the label that states whether or not you are clocked in
+    def change_clocked_in_label(self, badgeNum):
+        database = Database('TimesRecord.db')
+        currentweektime_db = database
+        usertimearray = []
+        clockinlabel = self.ui.label_3
+        #copy of get_all_associates i couldn't figure out how to put in it's own file except its for times
+        with currentweektime_db.connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM CurrentWeekSignInSignOut')
+        times = cursor.fetchall()
+        
+        for item in times:
+            if item[1] == badgeNum:
+                usertimearray.append(item)
+        if usertimearray != []:
+
+            if usertimearray[-1][4] == "0000-00-00 00:00:00":
+                clockinlabel.setText("Currently: CLOCKED IN")
+            else:
+                clockinlabel.setText("Currently: NOT CLOCKED IN")
+        else:
+            clockinlabel.setText("Currently: NOT CLOCKED IN")
+            
+        
     # Clocks in employee associated with badge number
     def clock_in_out(self, badgeNum):
         current_week_controller = CurrentWeekController('TimesRecord.db')
@@ -77,13 +103,20 @@ class LoggedInWindow(QtWidgets.QMainWindow):
         if len(all_entries) != 0:
             # Filter list to keep only employee entries associated with badge number
             current_employee_entries = [entry for entry in all_entries if entry[1] == badgeNum]
-
+            # Avoid failing in the case that there are no entries in the list.
+            if current_employee_entries != []:
+            
             # Checks if last entry was left empty for time out
-            if current_employee_entries[-1][4] == "0000-00-00 00:00:00":
-                current_week_controller.update_entry(current_employee_entries[-1][0], current_employee_entries[-1][3],
+                if current_employee_entries[-1][4] == "0000-00-00 00:00:00":
+                
+                    current_week_controller.update_entry(current_employee_entries[-1][0], current_employee_entries[-1][3],
                                                      datetime.now().strftime('%H:%M:%S'), "None")
-            else:
+                else:
                 # add employee entry
+                    current_week_controller.add_entry(badgeNum, date_str, datetime.now().strftime('%H:%M:%S'),
+                                                  "0000-00-00 00:00:00", "None")
+            else:
+            # add employee entry
                 current_week_controller.add_entry(badgeNum, date_str, datetime.now().strftime('%H:%M:%S'),
                                                   "0000-00-00 00:00:00", "None")
         else:
@@ -91,7 +124,9 @@ class LoggedInWindow(QtWidgets.QMainWindow):
                                               "0000-00-00 00:00:00", "None")
 
         self.load_tables_data(badgeNum)
-
+        #change the state of the label after clocking in
+        self.change_clocked_in_label(badgeNum)
+        
     # Set up format of tables
     def setup_tables(self):
         # Set number of columns
