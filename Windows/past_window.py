@@ -125,7 +125,6 @@ class PastWindow(QtWidgets.QMainWindow):
         # Convert qdates to datetime
         begin_date = datetime(qdate_begin.year(), qdate_begin.month(), qdate_begin.day())
         end_date = datetime(qdate_end.year(), qdate_end.month(), qdate_end.day())
-        print(f"Begin Date: {begin_date}, End Date: {end_date}")
         # Get this week's entries and previous week's entries within date range
         all_entries = self.previous_week_controller.get_entries_for_week(begin_date, end_date)
 
@@ -138,7 +137,6 @@ class PastWindow(QtWidgets.QMainWindow):
             record_id, badge_num, date, sign_in_time, sign_out_time, notes = entry
             # Parse the date and format it correctly.
             sql_date = datetime.strptime(date, '%Y-%m-%d')
-            print(f"SQL Date: {sql_date}")
             # If our date is between the two ranges, then display the data.
             if begin_date <= sql_date <= end_date:
                 # Get associate info since it isn't present in the previous weeks table.
