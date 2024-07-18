@@ -100,6 +100,7 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         self.ui.past_view_button.clicked.connect(self.switch_to_past_view)
         self.ui.admin_view_button.clicked.connect(self.switch_to_admin_view)
         self.update_button.clicked.connect(self.update_changes)
+        self.day_toggle_button.toggled.connect(self.on_toggle)
 
         # Set up tables and load data
         self.setup_tables()
@@ -113,6 +114,45 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
 
         # Show the main window
         self.show()
+
+    def on_toggle(self, checked):
+        if checked:
+            self.day_toggle_button.setText("Today Toggle: ON")
+            self.day_toggle_button.setStyleSheet(self.get_stylesheet(True))
+        else:
+            self.day_toggle_button.setText("Today Toggle: OFF")
+            self.day_toggle_button.setStyleSheet(self.get_stylesheet(False))
+        self.filter_table_by_day(checked)
+
+    def get_stylesheet(self, checked):
+        if checked:
+            return """
+                QPushButton {
+                    border: 2px solid #555;
+                    border-radius: 14px;
+                    background-color: #AFE1AF;  /* Pastel green */
+                    color: white;
+                    letter-spacing: 1px;
+                    font-size: 25px;
+                }
+                QPushButton:checked {
+                    background-color: #AFE1AF;  /* Pastel green */
+                }
+            """
+        else:
+            return """
+                QPushButton {
+                    border: 2px solid #555;
+                    border-radius: 14px;
+                    background-color: rgb(78, 149, 213);  /* Original blue */
+                    color: white;
+                    letter-spacing: 1px;
+                    font-size: 25px;
+                }
+                QPushButton:checked {
+                    background-color: #AFE1AF;  /* Pastel green */
+                }
+            """
 
     # If our past views button is pressed, set the stack widget to focus on the past views.
     def switch_to_past_view(self):
@@ -141,6 +181,9 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         self.name_filter = self.ui.findChild(QLineEdit, 'name_filter')
         self.department_filter = self.ui.findChild(QLineEdit, 'department_filter')
         self.update_button = self.ui.findChild(QPushButton, 'update_button')
+        self.day_toggle_button = self.ui.findChild(QPushButton, 'day_toggle_button')
+        self.day_toggle_button.setCheckable(True)
+        self.day_toggle_button.setStyleSheet(self.get_stylesheet(False))
 
     # Set up our data table.
     def setup_tables(self):
@@ -238,6 +281,28 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         else:
             # No filter
             self.proxy_model.setFilterRegularExpression(QRegularExpression())
+        # Since the filter is called when a new letter is typed, we also need to check if the day button is toggled.
+        self.filter_table_by_day(self.day_toggle_button.isChecked())
+
+
+
+    # Filter our table and only show results for today. Makes it easier to find your day to sign out if the table is
+    # big.
+    def filter_table_by_day(self, show_today):
+        if not show_today:
+            for row in range(self.model.rowCount()):
+                self.table_view.setRowHidden(row, False)
+            return
+
+        today_start, today_end = self.get_today_range()
+
+        for row in range(self.model.rowCount()):
+            date_str = self.model.item(row, 3).text()
+            event_date = datetime.strptime(date_str, "%Y-%m-%d")
+            if today_start.date() == event_date.date():
+                self.table_view.setRowHidden(row, False)
+            else:
+                self.table_view.setRowHidden(row, True)
 
     # Data changed method. The dataChanged event takes these exact arguments.
     def data_changed(self, top_left, bottom_right, roles):
@@ -284,6 +349,21 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         self.changed_entries.clear()
         # Reload the table.
         self.load_table_data()
+
+    # 1st shift associates start at 6:00 AM. 2nd shift associates start at 4:30 PM but clock out anywhere between
+    # 1:00 AM and 4:00 AM of the next day. This logic will return the date range of a full workday.
+    def get_today_range(self):
+        now = datetime.now()
+        # Calculate the start of today as 6:00 AM of the current date
+        today_start = datetime.combine(now.date(), datetime.min.time()) + timedelta(hours=6)
+        # Calculate the end of today as 4:00 AM of the next day
+        today_end = today_start + timedelta(hours=22)
+        # If the current time is before 6:00 AM, adjust to the previous day.
+        if now < today_start:
+            today_start -= timedelta(days=1)
+            today_end -= timedelta(days=1)
+        return today_start, today_end
+
 
 # Necessary method for pyinstaller to work at my workplace.
 def resource_path(relative_path):
