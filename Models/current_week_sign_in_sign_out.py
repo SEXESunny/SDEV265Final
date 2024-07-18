@@ -29,7 +29,6 @@ class CurrentWeekSignInSignOut:
                                       WHERE RecordID = ?''',
                            (sign_in_time, sign_out_time, additional_notes, record_id))
             conn.commit()
-            print(f"RecordID {record_id} updated successfully")
 
     # Get a specific entry date
     def get_entries_for_date(self, date):

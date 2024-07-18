@@ -56,8 +56,6 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         # Ensure the database is only copied from resources if it does not already exist
         if not os.path.exists(self.db_path):
             shutil.copy(resource_path(f'Database/{self.db_name}'), self.db_path)
-        else:
-            print("Database already exists, not copying.")
         self.current_week_controller = CurrentWeekController(self.db_path)
         self.previous_week_controller = PreviousWeekController(self.db_path)
         self.associate_controller = AssociateController(self.db_path)
