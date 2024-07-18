@@ -267,6 +267,7 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
             # Filter using both name and department. This shouldn't happen so just pass in an empty regular expression.
             self.proxy_model.setFilterRegularExpression(QRegularExpression())
             # Apply it to all columns.
+            # You can in fact build a custom filter proxy model but I am not worried about it right now.
             self.proxy_model.setFilterKeyColumn(-1)
             # Just pick the department since that's likely the last thing they'll enter if both fields are filled out.
             self.proxy_model.setFilterFixedString(department_filter_text)
@@ -285,8 +286,6 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
             self.proxy_model.setFilterRegularExpression(QRegularExpression())
         # Since the filter is called when a new letter is typed, we also need to check if the day button is toggled.
         self.filter_table_by_day(self.day_toggle_button.isChecked())
-
-
 
     # Filter our table and only show results for today. Makes it easier to find your day to sign out if the table is
     # big.
