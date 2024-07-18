@@ -17,10 +17,6 @@ class CurrentWeekSignInSignOut:
 
     # The main driving code to update current weekly entries
     def update_entry(self, record_id, sign_in_time, sign_out_time, additional_notes):
-        print(f"Updating RecordID: {record_id}")
-        print(f"New SignInTime: {sign_in_time}")
-        print(f"New SignOutTime: {sign_out_time}")
-        print(f"New AdditionalNotes: {additional_notes}")
 
         with self.db.connect() as conn:
             cursor = conn.cursor()
