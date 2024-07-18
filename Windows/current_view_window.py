@@ -115,7 +115,7 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         # Show the main window
         self.show()
 
-    # Change the text and button stylign depending on toggle state.
+    # Change the text and button styling depending on toggle state.
     def on_toggle(self, checked):
         if checked:
             self.day_toggle_button.setText("Today Toggle: ON")

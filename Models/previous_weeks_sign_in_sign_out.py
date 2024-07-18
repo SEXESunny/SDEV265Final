@@ -27,7 +27,7 @@ class PreviousWeeksSignInSignOut:
         with self.db.connect() as conn:
             cursor = conn.cursor()
             cursor.execute('''SELECT * FROM PreviousWeeksSignInSignOut WHERE Date BETWEEN ? AND ?''',
-                           (start_date, end_date))
+                           (start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')))
             return cursor.fetchall()
 
     # This is where it differs. To handle pagination and the ability to NOT retrieve EVERY SINGLE entry from
