@@ -115,6 +115,7 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         # Show the main window
         self.show()
 
+    # Change the text and button stylign depending on toggle state.
     def on_toggle(self, checked):
         if checked:
             self.day_toggle_button.setText("Today Toggle: ON")
@@ -124,6 +125,7 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
             self.day_toggle_button.setStyleSheet(self.get_stylesheet(False))
         self.filter_table_by_day(checked)
 
+    # Push custom styling to the button depending on if it's toggled or not.
     def get_stylesheet(self, checked):
         if checked:
             return """
@@ -297,8 +299,13 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         today_start, today_end = self.get_today_range()
 
         for row in range(self.model.rowCount()):
+            # Get date
             date_str = self.model.item(row, 3).text()
+            # Turn it into a datetime object.
             event_date = datetime.strptime(date_str, "%Y-%m-%d")
+            # The get_today_range method handles returning a valid day range. We ONLY care about the events that match
+            # the start date. This is because if it's 2:00 AM of the next day, it'll filter and only show the next day
+            # results.
             if today_start.date() == event_date.date():
                 self.table_view.setRowHidden(row, False)
             else:
