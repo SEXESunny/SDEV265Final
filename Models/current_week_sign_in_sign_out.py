@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+
+
 class CurrentWeekSignInSignOut:
     def __init__(self, db):
         self.db = db
@@ -14,13 +17,19 @@ class CurrentWeekSignInSignOut:
 
     # The main driving code to update current weekly entries
     def update_entry(self, record_id, sign_in_time, sign_out_time, additional_notes):
+        print(f"Updating RecordID: {record_id}")
+        print(f"New SignInTime: {sign_in_time}")
+        print(f"New SignOutTime: {sign_out_time}")
+        print(f"New AdditionalNotes: {additional_notes}")
+
         with self.db.connect() as conn:
             cursor = conn.cursor()
             cursor.execute('''UPDATE CurrentWeekSignInSignOut
-                              SET SignInTime = ?, SignOutTime = ?, AdditionalNotes = ?
-                              WHERE RecordID = ?''',
+                                      SET SignInTime = ?, SignOutTime = ?, AdditionalNotes = ?
+                                      WHERE RecordID = ?''',
                            (sign_in_time, sign_out_time, additional_notes, record_id))
             conn.commit()
+            print(f"RecordID {record_id} updated successfully")
 
     # Get a specific entry date
     def get_entries_for_date(self, date):
@@ -42,3 +51,10 @@ class CurrentWeekSignInSignOut:
             cursor = conn.cursor()
             cursor.execute('DELETE FROM CurrentWeekSignInSignOut')
             conn.commit()
+
+    # Get the week date range for the current week. This could be a static method but I try to avoid them as much as
+    # possible.
+    def get_current_week_dates(self):
+        today = datetime.today()
+        start_of_week = today - timedelta(days=today.weekday())  # Monday
+        return [start_of_week + timedelta(days=i) for i in range(7)]  # List of 7 days

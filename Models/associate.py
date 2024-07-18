@@ -9,15 +9,25 @@ class Associate:
             cursor.execute('''INSERT INTO Associates (BadgeNum, Name, Department) VALUES (?, ?, ?)''',
                            (badge_num, name, department))
             conn.commit()
+
     # Remove associate method
     def remove_associate(self, badge_num):
         with self.db.connect() as conn:
             cursor = conn.cursor()
             cursor.execute('DELETE FROM Associates WHERE BadgeNum = ?', (badge_num,))
             conn.commit()
+
     # Get all associates in the table.
     def get_all_associates(self):
         with self.db.connect() as conn:
             cursor = conn.cursor()
             cursor.execute('SELECT * FROM Associates')
             return cursor.fetchall()
+
+    # Retrieve all associate info via badge number.
+    def get_associate_by_badge(self, badge_num):
+        with self.db.connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT Name, Department FROM Associates WHERE BadgeNum = ?', (badge_num,))
+            result = cursor.fetchone()
+            return result

@@ -116,6 +116,8 @@ class PreviousWeeksSignInSignOut:
         # Return our paginated list and the total of all weeks.
         return paginated_entries, total_weeks
 
+    # Clear all entries if needs be. This will only be used for testing purposes. Upon release I WILL be commenting
+    # this out so data can't accidentally get lost via this method.
     def clear_entries(self):
         with self.db.connect() as conn:
             cursor = conn.cursor()

@@ -16,11 +16,14 @@ class DataTransferController:
 
     # For each entry in our current week, dump it into the previous week.
     def transfer_current_to_previous(self):
+        print("Transferring current week entries to previous week")
         entries = self.current_week_model.get_all_entries()
         for entry in entries:
+            print(f"Transferring entry: {entry}")
             self.previous_week_model.add_entry(entry[1], entry[2], entry[3], entry[4], entry[5])
         # Clear the table once this is done.
         self.current_week_model.clear_entries()
+        print("Cleared current week entries")
 
     # Initialize a new week. This is to be used after a transfer.
     def initialize_new_week(self):

@@ -1,146 +1,155 @@
-from datetime import datetime, timedelta
-from Models.database import Database
-from Controllers.associate_controller import *
-from Windows.scale_window import ScaleUI
-from Models.current_week_sign_in_sign_out import CurrentWeekSignInSignOut
-from Controllers.current_week_controller import *
-from Controllers.previous_week_controller import *
 from PySide6 import QtCore, QtGui, QtWidgets, QtUiTools
-from PySide6.QtCore import QDate
-from PySide6.QtWidgets import QDateEdit
-from Windows.custom_date_edit import CustomDateEdit  # Ensure this is correctly imported
+from PySide6.QtGui import QStandardItemModel, QStandardItem
+from PySide6.QtWidgets import QTableView, QLineEdit, QHeaderView, QHeaderView, QPushButton, QStackedWidget, QWidget
+from PySide6.QtCore import Qt, QSortFilterProxyModel, QModelIndex, QRegularExpression, QFile
+from PySide6.QtUiTools import QUiLoader
+from Windows.scale_window import ScaleUI
+from Windows.AddAssociatesDialog import AddAssociateDialog
 
 
+# Admin window to add and remove associates.
 class AdminWindow(QtWidgets.QMainWindow):
 
-    def __init__(self):
-        super(AdminWindow, self).__init__()
+    # In herit our controllers from the parent.
+    def __init__(self, parent, current_week_controller, previous_week_controller, associate_controller):
+        super(AdminWindow, self).__init__(parent)  # Pass parent to super
+        self.parent = parent  # Store the parent reference
+        self.current_week_controller = current_week_controller
+        self.previous_week_controller = previous_week_controller
+        self.associate_controller = associate_controller
+
+        # Same load file logic that all Qt windows need.
         loader = QtUiTools.QUiLoader()
-        ui_file = QtCore.QFile("Windows/AdminView.ui")
+        ui_file = QtCore.QFile("Windows/AdminWindow.ui")
         ui_file.open(QtCore.QFile.ReadOnly)
-        # The second argument for loader.load needs to be None, not self. It will not render if you don't do this
-        # for some reason.
         self.ui = loader.load(ui_file, None)
         ui_file.close()
 
-
-
-        # Set the UI as the central widget
+        # Set the UI as the central widget. This is needed or else it will not render.
         self.setCentralWidget(self.ui)
-
-        # Enforce a reasonable size for the main window
-        self.setMinimumSize(800, 600)
-        self.setMaximumSize(9999, 9999)
 
         # Scale UI
         ScaleUI(self, 1.5)
 
+        # Initialize our UI.
+        self.init_ui()
+        # Set up our tableview.
+        self.setup_tables()
+        # Populate the tableview with info.
+        self.load_table_data()
 
         # Connect buttons to their respective functions
         try:
-            self.ui.back_button.clicked.connect(self.back_to_log_in)
-            self.ui.begin_date.dateChanged.connect(self.load_tables_data)
-            self.ui.end_date.dateChanged.connect(self.load_tables_data)
+            self.ui.back_button.clicked.connect(self.back_to_current_view)
+            self.ui.add_button.clicked.connect(self.open_add_associate_dialog)
+            self.ui.remove_button.clicked.connect(self.remove_selected_associate)
+
             print("Buttons connected successfully")
         except Exception as e:
             print(f"Error connecting buttons: {e}")
 
-        # Set default dates and set up the table
-        self.set_default_dates()
-        self.setup_tables()
-        self.load_tables_data()
-
         # Show the main window
         self.show()
-        print("Main window shown")
 
-    # Set default dates for date edit widgets
-    def set_default_dates(self):
-        # Get current date
-        current_date = datetime.now()
+    # Basic UI initialization to assign our buttons to fields within the class.
+    def init_ui(self):
+        self.table_view = self.ui.findChild(QTableView, 'admin_table_view')
+        self.back_button = self.ui.findChild(QPushButton, 'back_button')
+        self.add_button = self.ui.findChild(QPushButton, 'add_button')
+        self.remove_button = self.ui.findChild(QPushButton, 'remove_button')
+        if not self.remove_button:
+            raise ValueError("Remove button 'remove_button' not found in the UI file.")
+        if not self.table_view:
+            raise ValueError("TableView 'admin_table_view' not found in the UI file.")
 
-        # Move date back 7 days
-        new_date = current_date - timedelta(days=7)
-
-        # Convert the date to qdate
-        qdate_begin = QtCore.QDate(new_date.year, new_date.month, new_date.day)
-        qdate_end = QtCore.QDate(current_date.year, current_date.month, current_date.day)
-
-        # Set the dates on the date edits
-        self.ui.begin_date.setDate(qdate_begin)
-        self.ui.end_date.setDate(qdate_end)
-
-    # Opens log in window
-    def back_to_log_in(self):
-        print("Back to login button clicked")
-        from Windows.log_in_window import LogInWindow
-        self.hide()
-        self.deleteLater()
-        self.main_window = LogInWindow()
-
-    # Formats the schedule table
+    # Logic to set up the table. For some reason, even though all of these fields were set in our
     def setup_tables(self):
-        # Set number of columns
-        self.ui.schedule_table.setColumnCount(7)
-        # Set horizontal labels
-        self.ui.schedule_table.setHorizontalHeaderLabels(['Record', 'Name', 'Badge#', 'Date', "Time In", "Time Out", "Notes"])
-        self.ui.schedule_table.horizontalHeader().setStretchLastSection(True)
+        # Create a model with columns matching your database table. There's only 3 columns for the associate table.
+        # Set rows to 0, as our load method will handle populating the rows.
+        self.model = QStandardItemModel(0, 3)
+        self.model.setHorizontalHeaderLabels(['Badge Number', 'Name', 'Department'])
 
-    # Get associate based on badge number
-    def get_associate(self, badgeNum):
-        associate_controller = AssociateController('TimesRecord.db')
-        # Get all associates data
-        associate_names = associate_controller.get_associates()
+        # Assign the model to the QTableView
+        self.table_view.setModel(self.model)
 
-        # Find associate name that is associated with badge number
-        for item in associate_names:
-            if item[0] == badgeNum:
-                return item[1]
+        # Configure the QTableView properties. This is also done in the UI but I was getting frustrated using the UI
+        # designer and just ended up doing it here.
+        self.table_view.setSelectionBehavior(QTableView.SelectRows)
+        self.table_view.setEditTriggers(
+            QTableView.DoubleClicked | QTableView.SelectedClicked | QTableView.EditKeyPressed)
+        self.table_view.setAlternatingRowColors(True)
+        self.table_view.horizontalHeader().setStretchLastSection(True)
+        self.table_view.verticalHeader().setSectionResizeMode(QHeaderView.Fixed)
 
-    # Get all entries within provided date in date widgets and displays them onto the schedule table
-    def load_tables_data(self):
-        print("Loading table data")
-        # Create controllers
-        current_week_controller = CurrentWeekController('TimesRecord.db')
-        previous_week_controller = PreviousWeekController('TimesRecord.db')
-        associate_controller = AssociateController('TimesRecord.db')
+        # Set width of the vertical header
+        self.table_view.verticalHeader().setFixedWidth(40)
+        # Badge Column
+        self.table_view.setColumnWidth(0, 140)
+        # Name Column
+        self.table_view.setColumnWidth(1, 140)
 
-        # Get all associates data
-        associate_names = associate_controller.get_associates()
-        # Filter associate names to only include the name
-        associate_names = [associate[1] for associate in associate_names]
+    # Set our current widget view to the Current View Window.
+    def back_to_current_view(self):
+        self.parent.stacked_widget.setCurrentWidget(self.parent.current_week_view)  # Switch back to main view
+        self.parent.load_table_data()
 
-        # Get qdates
-        qdate_begin = self.ui.begin_date.date()
-        qdate_end = self.ui.end_date.date()
+    # Load table data method.
+    def load_table_data(self):
+        # Get all of our entries.
+        entries = self.parent.associate_controller.get_associates()
+        # Clear our current data.
+        self.model.setRowCount(0)
 
-        # Convert qdates to datetime
-        begin_date = datetime(qdate_begin.year(), qdate_begin.month(), qdate_begin.day())
-        end_date = datetime(qdate_end.year(), qdate_end.month(), qdate_end.day())
+        # Loop through each entry.
+        for entry in entries:
+            # List comprehension to turn each item within the tuple to a QStandardItem object. This is needed for the
+            # table to display the items.
+            items = [QStandardItem(str(item)) for item in entry]
+            # Append the list to the table as a row.
+            self.model.appendRow(items)
 
-        # Get this week's entries and previous week's entries within date
-        all_entries = current_week_controller.get_all_entries()
-        all_entries += previous_week_controller.get_entries_for_week(begin_date, end_date)
+    # Loads our god forsaken dialog window.
+    def open_add_associate_dialog(self):
+        # Assign the dialog object as a field. Also we HAVE to pass in self as a parameter. Will not render without it.
+        self.addAssociateWindow = AddAssociateDialog(self)
+        # DON'T REMOVE THIS EITHER! THIS BREAKS THE DIALOG! EVEN IF THE BUTTON IS NEVER PRESSED IT WILL NOT RENDER
+        # WITHOUT IT! It is used to call the method to add the associate based off the provided info.
+        self.addAssociateWindow.associate_added_signal.connect(
+            self.add_associate_to_backend)
+        # Close our window after adding the associate.
+        self.addAssociateWindow.close()
 
-        self.ui.schedule_table.clearContents()
-        # Set number of rows
-        self.ui.schedule_table.setRowCount(len(all_entries))
+    # Add our assocaite to the table.
+    def add_associate_to_backend(self, badge_num, name, department):
+        # Call the controller to add the associate
+        self.associate_controller.add_associate(badge_num, name, department)
+        # Refresh our table.
+        self.load_table_data()
+        # Add the associate to the current weekly entries, so they can fill out their worked hours.
+        self.add_associate_blank_entries(badge_num)
 
-        # Keep track of what rows we skipped
-        row_skip = 0
+    # Remove the currently selected associate.
+    def remove_selected_associate(self):
+        # Get index of current selection.
+        selected_indexes = self.table_view.selectedIndexes()
+        if selected_indexes:
+            # Only delete the first selected row. I think it could be pretty dangerous to allow a mass delete.
+            selected_row = selected_indexes[0].row()
+            # Get the badge number of the selected row to pass in to the remove associate method.
+            badge_num = self.model.item(selected_row, 0).text()
+            # Call the controller to remove the associate
+            self.associate_controller.remove_associate(badge_num)
+            # Remove the row from the table
+            self.model.removeRow(selected_row)
+            # Refresh the table.
+            self.load_table_data()
 
-        # Populate table with data from current_employee_entries list and associate names
-        for row_index, row_data in enumerate(all_entries):
-            for col_index, col_data in enumerate(row_data):
-                sql_date = datetime.strptime(row_data[2], '%Y-%m-%d')
-
-                if sql_date >= begin_date and sql_date <= end_date:
-                    if col_index == 0:
-                        self.ui.schedule_table.setItem(row_index - row_skip, col_index, QtWidgets.QTableWidgetItem(str(col_data)))
-                    elif col_index == 1:
-                        self.ui.schedule_table.setItem(row_index - row_skip, col_index, QtWidgets.QTableWidgetItem(str(self.get_associate(row_data[1]))))
-                        self.ui.schedule_table.setItem(row_index - row_skip, col_index + 1, QtWidgets.QTableWidgetItem(str(col_data)))
-                    else:
-                        self.ui.schedule_table.setItem(row_index - row_skip, col_index + 1, QtWidgets.QTableWidgetItem(str(col_data)))
-                else:
-                    row_skip += 1
+    # Method to populate our weekly entries with blank entries for the newly added associate.
+    def add_associate_blank_entries(self, badge_num):
+        # Get dates of current week.
+        dates = self.current_week_controller.get_current_week_dates()
+        for date in dates:
+            # Format in Y-M-D format.
+            date_str = date.strftime('%Y-%m-%d')
+            # Add the blank entry.
+            self.current_week_controller.add_entry(badge_num, date_str, '', '', '')

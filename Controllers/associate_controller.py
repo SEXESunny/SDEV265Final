@@ -15,3 +15,6 @@ class AssociateController:
 
     def remove_associate(self, badge_num):
         self.model.remove_associate(badge_num)
+
+    def get_associate_by_badge(self, badge_num):
+        return self.model.get_associate_by_badge(badge_num)

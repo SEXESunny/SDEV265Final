@@ -21,3 +21,7 @@ class CurrentWeekController:
 
     def clear_entries(self):
         self.model.clear_entries()
+
+    def get_current_week_dates(self):
+        return self.model.get_current_week_dates()
+

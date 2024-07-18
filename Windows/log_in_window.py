@@ -4,7 +4,7 @@ from Models.database import Database
 from Controllers.associate_controller import *
 from Models.associate import *
 from Windows.scale_window import ScaleUI
-from Windows.logged_in_window import *
+from Windows.current_view_window import *
 
 
 class LogInWindow(QtWidgets.QMainWindow):
@@ -42,4 +42,4 @@ class LogInWindow(QtWidgets.QMainWindow):
         if int(self.ui.badge_number_input.text()) in badge_numbers:
             self.hide()
             self.deleteLater()
-            self.main_window = LoggedInWindow(int(self.ui.badge_number_input.text()))
+            self.main_window = CurrentViewWindow()
