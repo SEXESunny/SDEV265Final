@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdminWindow</class>
+ <widget class="QMainWindow" name="AdminWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1080</width>
+    <height>774</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: white;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="back_button">
+      <property name="minimumSize">
+       <size>
+        <width>140</width>
+        <height>60</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>140</width>
+        <height>60</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Tahoma</family>
+        <pointsize>-1</pointsize>
+        <fontweight>DemiBold</fontweight>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 14px;
+background-color: rgb(199, 86, 79); 
+color: white; letter-spacing: 0.6px; 
+font-size: 26px; 
+letter-spacing: .7px;</string>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="3">
+     <widget class="QTableView" name="admin_table_view">
+      <property name="maximumSize">
+       <size>
+        <width>2000</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Tahoma</family>
+        <pointsize>-1</pointsize>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTableView {
+    color: black;
+    gridline-color: black;
+    border: 2px solid black;  /* Outer border of the whole table */
+    font: 10px;
+	font-size: 12px;
+}
+QTableView::item {
+    border-top: 1px solid black;  /* Borders for each cell */
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid #555;
+}
+QTableCornerButton::section {
+    background-color: rgb(78, 149, 213);
+}
+QTableView::item:selected {
+    background-color: rgb(144, 144, 144);  /* Background color for selected item */
+    color: black;  /* Text color for selected item */
+}
+QTableView::item:focus {
+    border: 2px solid rgb(242, 128, 133);
+    background-color: rgb(144, 144, 144);
+}
+QHeaderView::section {
+    background-color: rgb(78, 149, 213);
+    color: white;
+    height: 35px;
+    font: 14px;
+}
+QScrollBar:vertical {
+    background: rgb(188, 224, 235);
+}
+QScrollBar::handle:vertical {
+    background: rgb(71, 153, 176);
+}
+QScrollBar:horizontal {
+    background: rgb(188, 224, 235);
+}
+QScrollBar::handle:horizontal {
+    background: rgb(71, 153, 176);
+}
+QLineEdit {
+    color: black;  /* Text color for QLineEdit (editor) */
+}</string>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+      </property>
+      <property name="cornerButtonEnabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="add_button">
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Tahoma</family>
+          <pointsize>-1</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #555; 
+border-radius: 14px;
+background-color: rgb(133, 193, 111);
+color: white; 
+letter-spacing: 1px; 
+font-size: 25px;</string>
+        </property>
+        <property name="text">
+         <string>Add Associate</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="remove_button">
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Tahoma</family>
+          <pointsize>-1</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #555; 
+border-radius: 14px;
+background-color: rgb(199, 86, 79); 
+color: white; 
+letter-spacing: 1px; 
+font-size: 25px;</string>
+        </property>
+        <property name="text">
+         <string>Remove Associate</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="associate_table">
+      <property name="minimumSize">
+       <size>
+        <width>420</width>
+        <height>60</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>420</width>
+        <height>69</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Tahoma</family>
+        <pointsize>-1</pointsize>
+        <fontweight>DemiBold</fontweight>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-size: 39px;
+color: black;</string>
+      </property>
+      <property name="text">
+       <string>Associate Table</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
