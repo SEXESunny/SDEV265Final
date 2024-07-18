@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>IMGs/account_logo.png</file>
+        <file>IMGs/current_week.png</file>
+        <file>IMGs/edit_time.png</file>
+        <file>IMGs/past_week.png</file>
+        <file>IMGs/subaroooo_logo.png</file>
+        <file>IMGs/subbaroo_long_name.jpg</file>
+    </qresource>
+</RCC>
