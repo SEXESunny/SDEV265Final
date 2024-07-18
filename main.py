@@ -8,6 +8,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from Windows.log_in_window import LogInWindow
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QStackedWidget
+import resources_rc
 
 
 def main():

@@ -35,7 +35,7 @@ class LogInWindow(QtWidgets.QMainWindow):
 
     # Open logged in window if badge number is valid
     def log_in(self):
-        database = Database('TimesRecord.db')
+        database = Database('../Database/TimesRecord.db')
         associate_db = Associate(database)
         associates = associate_db.get_all_associates()
         badge_numbers = [item[0] for item in associates]

@@ -3,6 +3,8 @@ from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import QTableView, QLineEdit, QHeaderView, QHeaderView, QPushButton, QStackedWidget, QWidget
 from PySide6.QtCore import Qt, QSortFilterProxyModel, QModelIndex, QRegularExpression, QFile
 from PySide6.QtUiTools import QUiLoader
+import os
+import sys
 from Windows.scale_window import ScaleUI
 from Windows.AddAssociatesDialog import AddAssociateDialog
 
@@ -20,7 +22,8 @@ class AdminWindow(QtWidgets.QMainWindow):
 
         # Same load file logic that all Qt windows need.
         loader = QtUiTools.QUiLoader()
-        ui_file = QtCore.QFile("Windows/AdminWindow.ui")
+        ui_file_path = resource_path('Windows\\AdminWindow.ui')
+        ui_file = QtCore.QFile(ui_file_path)
         ui_file.open(QtCore.QFile.ReadOnly)
         self.ui = loader.load(ui_file, None)
         ui_file.close()
@@ -44,7 +47,6 @@ class AdminWindow(QtWidgets.QMainWindow):
             self.ui.add_button.clicked.connect(self.open_add_associate_dialog)
             self.ui.remove_button.clicked.connect(self.remove_selected_associate)
 
-            print("Buttons connected successfully")
         except Exception as e:
             print(f"Error connecting buttons: {e}")
 
@@ -153,3 +155,12 @@ class AdminWindow(QtWidgets.QMainWindow):
             date_str = date.strftime('%Y-%m-%d')
             # Add the blank entry.
             self.current_week_controller.add_entry(badge_num, date_str, '', '', '')
+
+# Ignore this, PyInstaller needs it.
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    return os.path.join(base_path, relative_path)

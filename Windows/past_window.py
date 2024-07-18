@@ -5,7 +5,8 @@ from Windows.scale_window import ScaleUI
 from Models.current_week_sign_in_sign_out import CurrentWeekSignInSignOut
 from Controllers.current_week_controller import *
 from Controllers.previous_week_controller import *
-
+import sys
+import os
 from PySide6 import QtCore, QtGui, QtWidgets, QtUiTools
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import QTableView, QLineEdit, QHeaderView, QHeaderView, QPushButton
@@ -25,7 +26,8 @@ class PastWindow(QtWidgets.QMainWindow):
 
         # Normal UI loading logic that all QWindows need.
         loader = QtUiTools.QUiLoader()
-        ui_file = QtCore.QFile("Windows/PastWindow.ui")
+        ui_file_path = resource_path('Windows\\PastWindow.ui')
+        ui_file = QtCore.QFile(ui_file_path)
         ui_file.open(QtCore.QFile.ReadOnly)
         self.ui = loader.load(ui_file, None)
         ui_file.close()
@@ -242,9 +244,17 @@ class PastWindow(QtWidgets.QMainWindow):
             additional_notes = self.model.data(additional_notes_index, Qt.DisplayRole)
 
             # Call our update entry method from the controller.
-            self.current_week_controller.update_entry(record_id, sign_in_time, sign_out_time, additional_notes)
+            self.previous_week_controller.update_entry(record_id, sign_in_time, sign_out_time, additional_notes)
 
         # Clear the table.
         self.changed_entries.clear()
         # Reload the table.
-        self.load_table_data()
+        self.load_tables_data()
+# Method for PyInstaller
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    return os.path.join(base_path, relative_path)

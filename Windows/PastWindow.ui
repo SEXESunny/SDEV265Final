@@ -506,7 +506,7 @@ QLineEdit {
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>IMGs/subbaroo_long_name.jpg</pixmap>
+         <pixmap>:/IMGs/subbaroo_long_name.jpg</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>

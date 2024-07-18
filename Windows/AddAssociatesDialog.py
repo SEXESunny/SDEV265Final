@@ -6,6 +6,9 @@ from PySide6.QtCore import Qt, QSortFilterProxyModel, QModelIndex, QRegularExpre
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import Signal, Slot
 from Windows.scale_window import ScaleUI
+import os
+import sys
+
 
 
 # While attempting to make a dialog box, I've had NOTHING but issues. A separate empty window would pop up alongside
@@ -27,12 +30,11 @@ class AddAssociateDialog(QDialog):
         # Call the laoder
         loader = QtUiTools.QUiLoader()
         # Provide pathing
-        path = "Windows/AddAssociate.ui"  # Ensure this path is correct
+        ui_file_path = resource_path('Windows\\AddAssociate.ui')
+        ui_file = QtCore.QFile(ui_file_path)
         # Create a file in memory based off the path.
-        ui_file = QFile(path)
         # Debug print statements. Will leave this here for now.
         if not ui_file.exists():
-            print(f"Unable to find UI file at {path}")
             return
         # Open the file in read only mode.
         ui_file.open(QFile.ReadOnly)
@@ -69,3 +71,12 @@ class AddAssociateDialog(QDialog):
         self.associate_added_signal.emit(badge_num, name, department)
         # Closes the dialogue.
         self.accept()
+
+# Ignore this, PyInstaller needs it.
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    return os.path.join(base_path, relative_path)

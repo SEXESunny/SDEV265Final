@@ -2,6 +2,9 @@ from datetime import datetime
 from Models.database import Database
 from Controllers.associate_controller import *
 from Models.associate import *
+import os
+import sys
+import shutil
 from Windows.scale_window import ScaleUI
 from Controllers.current_week_controller import *
 from Controllers.previous_week_controller import *
@@ -22,7 +25,8 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         super(CurrentViewWindow, self).__init__()
         # Normal UI loading logic that all QWindows need.
         loader = QtUiTools.QUiLoader()
-        ui_file = QtCore.QFile("Windows/CurrentView.ui")
+        ui_file_path = resource_path('Windows\\CurrentView.ui')
+        ui_file = QtCore.QFile(ui_file_path)
         if not ui_file.exists():
             print(f"Unable to find {ui_file.fileName()}")
         ui_file.open(QtCore.QFile.ReadOnly)
@@ -38,7 +42,22 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(self.stacked_widget)
 
         # Initialize our controllers.
-        self.db_path = 'TimesRecord.db'
+        # Define the path to the database file in the current directory
+        # All of the following pathing logic was just for my network drive at work. It is not relevant for the actual
+        # project.
+        self.db_name = 'TimesRecord.db'
+        self.db_dir = os.path.join(os.path.abspath("."), 'Database')
+        self.db_path = os.path.join(self.db_dir, self.db_name)
+
+        # Ensure the Database directory exists in the current directory
+        if not os.path.exists(self.db_dir):
+            os.makedirs(self.db_dir)
+
+        # Ensure the database is only copied from resources if it does not already exist
+        if not os.path.exists(self.db_path):
+            shutil.copy(resource_path(f'Database/{self.db_name}'), self.db_path)
+        else:
+            print("Database already exists, not copying.")
         self.current_week_controller = CurrentWeekController(self.db_path)
         self.previous_week_controller = PreviousWeekController(self.db_path)
         self.associate_controller = AssociateController(self.db_path)
@@ -70,7 +89,7 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         self.stacked_widget.setCurrentWidget(self.current_week_view)
 
         # Enforce a fixed size for the main window
-        self.setFixedSize(1080, 800)
+        self.setFixedSize(1095, 800)
 
         ScaleUI(self, 1.5)
 
@@ -80,7 +99,6 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         # Connect buttons to their respective functions
         self.ui.past_view_button.clicked.connect(self.switch_to_past_view)
         self.ui.admin_view_button.clicked.connect(self.switch_to_admin_view)
-        self.ui.back_button.clicked.connect(self.back_to_log_in)
         self.update_button.clicked.connect(self.update_changes)
 
         # Set up tables and load data
@@ -266,3 +284,12 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         self.changed_entries.clear()
         # Reload the table.
         self.load_table_data()
+
+# Necessary method for pyinstaller to work at my workplace.
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    return os.path.join(base_path, relative_path)

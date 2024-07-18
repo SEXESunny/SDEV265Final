@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="TimesRecord.db" uuid="c8486d0a-fafe-4052-aaa5-883a442daa8d">
+    <data-source source="LOCAL" name="TimesRecord [2]" uuid="82471f9f-0236-4eb8-88ff-86b459137978">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:TimesRecord.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\23462\PycharmProjects\SDEV265Final\Database\TimesRecord.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.45.1/org/xerial/sqlite-jdbc/3.45.1.0/sqlite-jdbc-3.45.1.0.jar</url>
+        </library>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.45.1/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar</url>
+        </library>
+      </libraries>
     </data-source>
-    <data-source source="LOCAL" name="TimesRecord" uuid="92ebc8b8-497a-48a6-a8a6-adfb0c028362">
+    <data-source source="LOCAL" name="TimesRecord" uuid="15d766f5-deab-4805-813c-21e54d3fc522">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\23462\PycharmProjects\SDEV265Final\TimesRecord.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:\\subaru-isuzu.com\vol2\Common\Subaru\Mfg Eng Engine\Engine Line\Poka Yoke team Folder\SignInSignOut\Database\TimesRecord.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
