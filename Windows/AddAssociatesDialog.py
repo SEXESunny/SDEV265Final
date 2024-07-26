@@ -10,12 +10,11 @@ import os
 import sys
 
 
-
 # While attempting to make a dialog box, I've had NOTHING but issues. A separate empty window would pop up alongside
 # the dialog window. This was horrible to get working.
 class AddAssociateDialog(QDialog):
     # Signal to be sent to the admin window upon accepting a finished entry.
-    associate_added_signal = Signal(str, str, str)  # Signal to send form data
+    associate_added_signal = Signal(str, str, str)
 
     def __init__(self, parent=None):
         # Inherit from the admin window so we can pass signals to it.
@@ -71,6 +70,7 @@ class AddAssociateDialog(QDialog):
         self.associate_added_signal.emit(badge_num, name, department)
         # Closes the dialogue.
         self.accept()
+
 
 # Ignore this, PyInstaller needs it.
 def resource_path(relative_path):
