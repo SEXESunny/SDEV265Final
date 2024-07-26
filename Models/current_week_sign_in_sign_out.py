@@ -17,7 +17,6 @@ class CurrentWeekSignInSignOut:
 
     # The main driving code to update current weekly entries
     def update_entry(self, record_id, sign_in_time, sign_out_time, additional_notes):
-
         with self.db.connect() as conn:
             cursor = conn.cursor()
             cursor.execute('''UPDATE CurrentWeekSignInSignOut
@@ -25,13 +24,6 @@ class CurrentWeekSignInSignOut:
                                       WHERE RecordID = ?''',
                            (sign_in_time, sign_out_time, additional_notes, record_id))
             conn.commit()
-
-    # Get a specific entry date
-    def get_entries_for_date(self, date):
-        with self.db.connect() as conn:
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM CurrentWeekSignInSignOut WHERE Date = ?', (date,))
-            return cursor.fetchall()
 
     # Return ALL current weekly entries
     def get_all_entries(self):

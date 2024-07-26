@@ -15,9 +15,3 @@ class PreviousWeekController:
 
     def get_entries_for_week(self, start_date, end_date):
         return self.model.get_entries_for_week(start_date, end_date)
-
-    def get_paginated_weekly_entries(self, page_number, page_size=1):
-        return self.model.get_paginated_weekly_entries(page_number, page_size)
-
-    def clear_entries(self):
-        self.model.clear_entries()

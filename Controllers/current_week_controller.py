@@ -13,9 +13,6 @@ class CurrentWeekController:
     def update_entry(self, record_id, sign_in_time, sign_out_time, additional_notes):
         self.model.update_entry(record_id, sign_in_time, sign_out_time, additional_notes)
 
-    def get_entries_for_date(self, date):
-        self.model.get_entries_for_date(date)
-
     def get_all_entries(self):
         return self.model.get_all_entries()
 
@@ -24,4 +21,3 @@ class CurrentWeekController:
 
     def get_current_week_dates(self):
         return self.model.get_current_week_dates()
-

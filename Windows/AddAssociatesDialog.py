@@ -39,7 +39,7 @@ class AddAssociateDialog(QDialog):
         # Open the file in read only mode.
         ui_file.open(QFile.ReadOnly)
         # Load the UI up using the read in file.
-        self.ui = loader.load(ui_file, self)  # Load the UI with this as the parent
+        self.ui = loader.load(ui_file, self)
         # Close the file after the UI successfully loads.
         ui_file.close()
 
