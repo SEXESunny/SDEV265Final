@@ -18,8 +18,8 @@ from PySide6.QtWidgets import QDateEdit
 class PastWindow(QtWidgets.QMainWindow):
 
     def __init__(self, parent, current_week_controller, previous_week_controller, associate_controller):
-        super(PastWindow, self).__init__(parent)  # Pass parent to super
-        self.parent = parent  # Store the parent reference
+        super(PastWindow, self).__init__(parent)
+        self.parent = parent
         self.current_week_controller = current_week_controller
         self.previous_week_controller = previous_week_controller
         self.associate_controller = associate_controller

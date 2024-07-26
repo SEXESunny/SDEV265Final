@@ -12,10 +12,10 @@ from Windows.AddAssociatesDialog import AddAssociateDialog
 # Admin window to add and remove associates.
 class AdminWindow(QtWidgets.QMainWindow):
 
-    # In herit our controllers from the parent.
+    # Inherit our controllers from the parent.
     def __init__(self, parent, current_week_controller, previous_week_controller, associate_controller):
-        super(AdminWindow, self).__init__(parent)  # Pass parent to super
-        self.parent = parent  # Store the parent reference
+        super(AdminWindow, self).__init__(parent)
+        self.parent = parent
         self.current_week_controller = current_week_controller
         self.previous_week_controller = previous_week_controller
         self.associate_controller = associate_controller
