@@ -17,7 +17,7 @@ class AddAssociateDialog(QDialog):
     associate_added_signal = Signal(str, str, str)
 
     def __init__(self, parent=None):
-        # Inherit from the admin window so we can pass signals to it.
+        # Inherit from the admin window, so we can pass signals to it.
         super(AddAssociateDialog, self).__init__(parent)
         # THIS HAS TO BE PLACED HERE FOR SOME REASON!!! THE DIALOG WILL NOT RENDER IF THIS IS NOT IN THIS EXACT SPOT!
         self.show()
@@ -26,7 +26,7 @@ class AddAssociateDialog(QDialog):
         self.load_ui()
 
     def load_ui(self):
-        # Call the laoder
+        # Call the loader
         loader = QtUiTools.QUiLoader()
         # Provide pathing
         ui_file_path = resource_path('Windows\\AddAssociate.ui')
