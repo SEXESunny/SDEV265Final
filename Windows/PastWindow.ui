@@ -36,99 +36,20 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="6" column="0" colspan="7">
-     <layout class="QVBoxLayout" name="verticalLayout_4">
+    <item row="0" column="2">
+     <layout class="QVBoxLayout" name="verticalLayout_9">
       <property name="spacing">
        <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
       </property>
       <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2"/>
-        </item>
-        <item>
-         <widget class="QTableView" name="past_week_time_table">
-          <property name="maximumSize">
-           <size>
-            <width>2000</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Tahoma</family>
-            <pointsize>-1</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QTableView {
-    color: black;
-    gridline-color: black;
-    border: 2px solid black;  /* Outer border of the whole table */
-    font: 10px;
-	font-size: 12px;
-}
-QTableView::item {
-    border-top: 1px solid black;  /* Borders for each cell */
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid #555;
-}
-QTableCornerButton::section {
-    background-color: rgb(78, 149, 213);
-}
-QTableView::item:selected {
-    background-color: rgb(144, 144, 144);  /* Background color for selected item */
-    color: black;  /* Text color for selected item */
-}
-QTableView::item:focus {
-    border: 2px solid rgb(242, 128, 133);
-    background-color: rgb(144, 144, 144);
-}
-QHeaderView::section {
-    background-color: rgb(78, 149, 213);
-    color: white;
-    height: 35px;
-    font: 14px;
-}
-QScrollBar:vertical {
-    background: rgb(188, 224, 235);
-}
-QScrollBar::handle:vertical {
-    background: rgb(71, 153, 176);
-}
-QScrollBar:horizontal {
-    background: rgb(188, 224, 235);
-}
-QScrollBar::handle:horizontal {
-    background: rgb(71, 153, 176);
-}
-QLineEdit {
-    color: black;  /* Text color for QLineEdit (editor) */
-}</string>
-          </property>
-          <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
-          </property>
-          <property name="cornerButtonEnabled">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="3">
-     <layout class="QVBoxLayout" name="verticalLayout_9">
       <item>
        <widget class="QLabel" name="begin_date_label">
         <property name="minimumSize">
@@ -195,7 +116,7 @@ letter-spacing: .5px;</string>
          <string notr="true">background-color: rgb(242, 241, 243);
 color: black;
 border: 2px solid rgb(185, 184, 186);
-padding-left:10px;
+padding-left:15px;
 padding-bottom: 6px;</string>
         </property>
         <property name="frame">
@@ -217,8 +138,131 @@ padding-bottom: 6px;</string>
       </item>
      </layout>
     </item>
-    <item row="3" column="4">
-     <spacer name="horizontalSpacer_2">
+    <item row="2" column="2">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="end_date_label">
+        <property name="minimumSize">
+         <size>
+          <width>145</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>145</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Tahoma</family>
+          <pointsize>-1</pointsize>
+          <fontweight>DemiBold</fontweight>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: black; 
+letter-spacing: .5px;
+font-size: 25px;</string>
+        </property>
+        <property name="text">
+         <string>End Date </string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateEdit" name="end_date">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Tahoma</family>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>IBeamCursor</cursorShape>
+        </property>
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::FocusPolicy::ClickFocus</enum>
+        </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(242, 241, 243);
+color: black;
+border: 2px solid rgb(185, 184, 186);
+padding-left:15px;
+padding-bottom: 6px;</string>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::InputMethodHint::ImhDate</set>
+        </property>
+        <property name="wrapping">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+        </property>
+        <property name="keyboardTracking">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="4">
+     <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
       </property>
@@ -230,12 +274,64 @@ padding-bottom: 6px;</string>
       </property>
      </spacer>
     </item>
-    <item row="3" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout_5">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
-       <layout class="QGridLayout" name="gridLayout_2">
+       <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
-         <spacer name="horizontalSpacer_4">
+         <widget class="QPushButton" name="back_button">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>140</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Tahoma</family>
+            <pointsize>-1</pointsize>
+            <fontweight>DemiBold</fontweight>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+border: None; 
+border-radius: 5px;
+border-right: 2.7px solid rgb(43, 43, 43); 
+border-bottom: 2.7px solid rgb(43, 43, 43);
+background-color:rgb(207, 67, 74); 
+color: white; 
+letter-spacing: 0.7px; 
+font-size: 25px;
+}
+
+QPushButton:hover {
+color: rgb(238, 237, 240);
+background-color: rgb(165, 48, 55);
+}</string>
+          </property>
+          <property name="text">
+           <string>Back</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <spacer name="horizontalSpacer_5">
           <property name="orientation">
            <enum>Qt::Orientation::Horizontal</enum>
           </property>
@@ -244,7 +340,31 @@ padding-bottom: 6px;</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>50</width>
+            <width>200</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="2">
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
             <height>20</height>
            </size>
           </property>
@@ -303,8 +423,8 @@ background-color: rgb(44, 112, 160);
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <spacer name="horizontalSpacer_3">
+        <item row="0" column="0">
+         <spacer name="horizontalSpacer_4">
           <property name="orientation">
            <enum>Qt::Orientation::Horizontal</enum>
           </property>
@@ -323,7 +443,106 @@ background-color: rgb(44, 112, 160);
       </item>
      </layout>
     </item>
-    <item row="1" column="1">
+    <item row="2" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>69</width>
+            <height>69</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>69</width>
+            <height>69</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 2px solid #555; 
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap>:/IMGs/past_week.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="past_weeks_label">
+          <property name="minimumSize">
+           <size>
+            <width>110</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>350</width>
+            <height>69</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Tahoma</family>
+            <pointsize>-1</pointsize>
+            <fontweight>DemiBold</fontweight>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 2px solid #555; 
+background-color: rgb(231, 143, 80);
+color: white; 
+letter-spacing: 0.6px; 
+font-size: 33px;
+</string>
+          </property>
+          <property name="text">
+           <string>Past Weeks</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="1">
      <layout class="QVBoxLayout" name="verticalLayout_7">
       <item>
        <layout class="QGridLayout" name="gridLayout_6">
@@ -423,15 +642,21 @@ font-size: 20px;</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>220</width>
+            <width>250</width>
             <height>40</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>220</width>
+            <width>250</width>
             <height>40</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Tahoma</family>
+            <pointsize>-1</pointsize>
+           </font>
           </property>
           <property name="styleSheet">
            <string notr="true">border: 2px solid #555; 
@@ -452,15 +677,21 @@ padding-left: 8px;</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>220</width>
+            <width>250</width>
             <height>40</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>220</width>
+            <width>250</width>
             <height>40</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Tahoma</family>
+            <pointsize>-1</pointsize>
+           </font>
           </property>
           <property name="styleSheet">
            <string notr="true">border: 2px solid #555; 
@@ -475,288 +706,7 @@ padding-left: 8px;</string>
       </item>
      </layout>
     </item>
-    <item row="3" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item row="0" column="1">
-         <widget class="QLabel" name="past_weeks_label">
-          <property name="minimumSize">
-           <size>
-            <width>110</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>350</width>
-            <height>69</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Tahoma</family>
-            <pointsize>-1</pointsize>
-            <fontweight>DemiBold</fontweight>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font-size: 39px;
-color: black;
-border: 2px solid #555; 
-</string>
-          </property>
-          <property name="text">
-           <string>Past Weeks</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>69</width>
-            <height>69</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>69</width>
-            <height>69</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border: 2px solid #555; 
-</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap>:/IMGs/past_week.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="4">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="1" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_6">
-      <item>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="back_button">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>140</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>140</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Tahoma</family>
-            <pointsize>-1</pointsize>
-            <fontweight>DemiBold</fontweight>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-border: None; 
-border-radius: 5px;
-border-right: 2.7px solid rgb(43, 43, 43); 
-border-bottom: 2.7px solid rgb(43, 43, 43);
-background-color:rgb(207, 67, 74); 
-color: white; 
-letter-spacing: 0.7px; 
-font-size: 25px;
-}
-
-QPushButton:hover {
-color: rgb(238, 237, 240);
-background-color: rgb(165, 48, 55);
-}</string>
-          </property>
-          <property name="text">
-           <string>Back</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <spacer name="horizontalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Policy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>150</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item row="3" column="3">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="topMargin">
-       <number>5</number>
-      </property>
-      <property name="bottomMargin">
-       <number>20</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="end_date_label">
-        <property name="maximumSize">
-         <size>
-          <width>126</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Tahoma</family>
-          <pointsize>-1</pointsize>
-          <fontweight>DemiBold</fontweight>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: black; 
-letter-spacing: .5px;
-font-size: 25px;</string>
-        </property>
-        <property name="text">
-         <string>End Date</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QDateEdit" name="end_date">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="sizeIncrement">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="baseSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Tahoma</family>
-         </font>
-        </property>
-        <property name="cursor">
-         <cursorShape>IBeamCursor</cursorShape>
-        </property>
-        <property name="mouseTracking">
-         <bool>true</bool>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::FocusPolicy::ClickFocus</enum>
-        </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(242, 241, 243);
-color: black;
-border: 2px solid rgb(185, 184, 186);
-padding-left:10px;
-padding-bottom: 6px;</string>
-        </property>
-        <property name="inputMethodHints">
-         <set>Qt::InputMethodHint::ImhDate</set>
-        </property>
-        <property name="wrapping">
-         <bool>true</bool>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-        </property>
-        <property name="keyboardTracking">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="7" column="1">
+    <item row="6" column="1">
      <layout class="QVBoxLayout" name="verticalLayout_10">
       <property name="spacing">
        <number>0</number>
@@ -785,6 +735,110 @@ padding-bottom: 6px;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="4">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="5" column="0" colspan="7">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+        </item>
+        <item>
+         <widget class="QTableView" name="past_week_time_table">
+          <property name="maximumSize">
+           <size>
+            <width>2000</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Tahoma</family>
+            <pointsize>-1</pointsize>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QTableView {
+    color: black;
+    gridline-color: black;
+    border: 2px solid black;  /* Outer border of the whole table */
+    font: 10px;
+	font-size: 12px;
+}
+QTableView::item {
+    border-top: 1px solid black;  /* Borders for each cell */
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid #555;
+}
+QTableCornerButton::section {
+    background-color: rgb(78, 149, 213);
+}
+QTableView::item:selected {
+    background-color: rgb(144, 144, 144);  /* Background color for selected item */
+    color: black;  /* Text color for selected item */
+}
+QTableView::item:focus {
+    border: 2px solid rgb(242, 128, 133);
+    background-color: rgb(144, 144, 144);
+}
+QHeaderView::section {
+    background-color: rgb(78, 149, 213);
+    color: white;
+    height: 35px;
+    font: 14px;
+}
+QScrollBar:vertical {
+    background: rgb(188, 224, 235);
+}
+QScrollBar::handle:vertical {
+    background: rgb(71, 153, 176);
+}
+QScrollBar:horizontal {
+    background: rgb(188, 224, 235);
+}
+QScrollBar::handle:horizontal {
+    background: rgb(71, 153, 176);
+}
+QLineEdit {
+    color: black;  /* Text color for QLineEdit (editor) */
+}</string>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+          </property>
+          <property name="cornerButtonEnabled">
+           <bool>false</bool>
           </property>
          </widget>
         </item>

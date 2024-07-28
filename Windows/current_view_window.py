@@ -25,7 +25,7 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         super(CurrentViewWindow, self).__init__()
 
         self.setStyleSheet("background-color: white;") #White color added since there is a weird gap on the left and top borders showing gray space.
-        self.setWindowTitle("Color") # Set the backup color.
+        self.setWindowTitle("Clock In / Clock Out")
         # Normal UI loading logic that all QWindows need.
         loader = QtUiTools.QUiLoader()
         ui_file_path = resource_path('Windows//CurrentView.ui')
@@ -135,13 +135,13 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
                     border-radius: 5px;
                     border-right: 2.7px solid rgb(43, 43, 43); 
                     border-bottom: 2.7px solid rgb(43, 43, 43);
-                    background-color: #AFE1AF;  /* Pastel green */
+                    background-color: #5AA86F;  /* Pastel green */
                     color: white;
                     letter-spacing: 1px;
                     font-size: 25px;
                 }
                 QPushButton:checked {
-                    background-color: #AFE1AF;  /* Pastel green */
+                    background-color: #5AA86F;  /* Pastel green */
                 }
                 QPushButton:hover {
                     color: rgb(238, 237, 240);  /* Gray */
@@ -161,7 +161,7 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
                     font-size: 25px;
                 }
                 QPushButton:checked {
-                    background-color: #AFE1AF;  /* Pastel green */
+                    background-color: #5AA86F;  /* Pastel green */
                 }
                 QPushButton:hover {
                     color: rgb(238, 237, 240);      /* Gray */
