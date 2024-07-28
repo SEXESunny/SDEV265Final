@@ -1,6 +1,6 @@
 # SDEV265-Final
 <br>
-This version is almost done just need to complete: <br>
+This version is almost done just need to complete, use this in "window" terminal: <br>
 - AdminWindow.ui : <br>
                                      pyside6-uic AdminWindow.ui -o admin_window.py
 <br>
