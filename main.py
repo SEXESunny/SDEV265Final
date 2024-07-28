@@ -8,6 +8,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QStackedWidget
 import resources_rc
+import sys
 
 
 def main():
@@ -21,13 +22,12 @@ def main():
     # dummy_data_controller.populate_dummy_data()
 
     loader = QUiLoader()
-    app = QtWidgets.QApplication([])
-
+    # Create an instance of QApplication which manages application-wide resources
+    app = QtWidgets.QApplication(sys.argv)
     window = CurrentViewWindow()
-
     window.show()
-    app.exec()
-
+    # Start the main event loop and pass its return value to sys.exit() to exit the application correctly
+    sys.exit(app.exec())
 
 if __name__ == "__main__":
     main()

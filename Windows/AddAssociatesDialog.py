@@ -1,7 +1,7 @@
 from PySide6 import QtCore, QtGui, QtWidgets, QtUiTools
-from PySide6.QtGui import QStandardItemModel, QStandardItem
+from PySide6.QtGui import QStandardItemModel, QStandardItem, QIntValidator
 from PySide6.QtWidgets import QTableView, QLineEdit, QHeaderView, QHeaderView, QPushButton, QStackedWidget, QWidget, \
-    QVBoxLayout, QDialog, QDialogButtonBox, QLabel, QLineEdit, QDialogButtonBox
+    QVBoxLayout, QDialog, QDialogButtonBox, QLabel, QLineEdit, QDialogButtonBox, QApplication
 from PySide6.QtCore import Qt, QSortFilterProxyModel, QModelIndex, QRegularExpression, QFile
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import Signal, Slot
@@ -19,10 +19,8 @@ class AddAssociateDialog(QDialog):
     def __init__(self, parent=None):
         # Inherit from the admin window, so we can pass signals to it.
         super(AddAssociateDialog, self).__init__(parent)
-        # THIS HAS TO BE PLACED HERE FOR SOME REASON!!! THE DIALOG WILL NOT RENDER IF THIS IS NOT IN THIS EXACT SPOT!
-        self.show()
 
-        # Load our UI after showing the dialogue window.
+        # Load our UI
         self.load_ui()
 
     def load_ui(self):
@@ -30,15 +28,13 @@ class AddAssociateDialog(QDialog):
         loader = QtUiTools.QUiLoader()
         # Provide pathing
         ui_file_path = resource_path('Windows//AddAssociate.ui')
+        # Create our UI file to be opened
         ui_file = QtCore.QFile(ui_file_path)
-        # Create a file in memory based off the path.
-        # Debug print statements. Will leave this here for now.
-        if not ui_file.exists():
-            return
+
         # Open the file in read only mode.
         ui_file.open(QFile.ReadOnly)
-        # Load the UI up using the read in file.
-        self.ui = loader.load(ui_file, self)
+        # Load the UI up using the read in file. Second argument NEEDS to also be None.
+        self.ui = loader.load(ui_file, None)
         # Close the file after the UI successfully loads.
         ui_file.close()
 
@@ -52,10 +48,17 @@ class AddAssociateDialog(QDialog):
         # DO NOT DELETE THIS LOGIC! FOR SOME REASON IT IS REQUIRED OR ELSE A RANDOM EMPTY WINDOW POPS UP UPON
         # OPENING THE DIALOG. I DONT UNDERSTAND WHY BUT IT IS REQUIRED!!!!!!!!!!!!!!!
         self.button_box = self.ui.findChild(QDialogButtonBox, 'buttonBox')
+        self.badge_num_edit = self.ui.findChild(QLineEdit, 'badge_num_edit')
+        self.department_edit = self.ui.findChild(QLineEdit, 'department_edit')
+        self.name_edit = self.ui.findChild(QLineEdit, 'name_edit')
         if self.button_box:
             # If the child object is found, connect our buttons.
             self.button_box.accepted.connect(self.on_ok_clicked)
             self.button_box.rejected.connect(self.reject)
+
+        # Badge number HAS to be an integer. This sets the validator for the QLineEdit to ONLY accept numbers.
+        int_validator = QIntValidator(0, 99999999)  # Adjust the range as needed
+        self.badge_num_edit.setValidator(int_validator)
 
     # On OK clicked event. This is yet again another thing that has to be here. When I tried to remove it and build
     # a different method, the random ghost window would pop back up. Much like everything else in this python file
@@ -72,7 +75,8 @@ class AddAssociateDialog(QDialog):
         self.accept()
 
 
-# Ignore this, PyInstaller needs it.
+# Ignore this, PyInstaller needs it. This was just code from a GitHub ticket where someone was having the same
+# issue I was having. My manager needed the file to be an executable for whatever reason.
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:

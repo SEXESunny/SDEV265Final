@@ -110,16 +110,18 @@ class AdminWindow(QtWidgets.QMainWindow):
             # Append the list to the table as a row.
             self.model.appendRow(items)
 
-    # Loads our god forsaken dialog window.
+    # Loads our god forsaken dialog window. The AddAssociateDialog class used to use window.show() but this was causing
+    # multiple windows to forever be open in the background, regardless if the dialog was accepted or rejected.
+    # Initially I tried to use .exec to open the dialog, but it would render blank. Now it works for no reason and it
+    # fixed the multiple windows issue. Whatever.
     def open_add_associate_dialog(self):
-        # Assign the dialog object as a field. Also we HAVE to pass in self as a parameter. Will not render without it.
-        self.addAssociateWindow = AddAssociateDialog(self)
-        # DON'T REMOVE THIS EITHER! THIS BREAKS THE DIALOG! EVEN IF THE BUTTON IS NEVER PRESSED IT WILL NOT RENDER
-        # WITHOUT IT! It is used to call the method to add the associate based off the provided info.
-        self.addAssociateWindow.associate_added_signal.connect(
-            self.add_associate_to_backend)
-        # Close our window after adding the associate.
-        self.addAssociateWindow.close()
+        # Create and execute the dialog
+        dialog = AddAssociateDialog(self)
+        dialog.associate_added_signal.connect(self.add_associate_to_backend)
+        # Ensures the dialog stays open until it receives a return code to close.
+        dialog.exec()
+        # Ensures the dialog is properly deleted.
+        dialog.deleteLater()
 
     # Add our assocaite to the table.
     def add_associate_to_backend(self, badge_num, name, department):

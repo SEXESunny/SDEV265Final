@@ -5,16 +5,15 @@ block_cipher = None
 
 a = Analysis(
     ['main.py', 'resources_rc.py'],  # Include the generated resource file
-    pathex=['C:\\Users\\23462\\PycharmProjects\\SDEV265Final'],
+    pathex=['C:\\Users\\SEXES\\PycharmProjects\\SDEV265Final'],
     binaries=[],
     datas=[
-        ('C:\\Users\\23462\\PycharmProjects\\SDEV265Final\\Database\\TimesRecord.db', 'Database'),
-        ('C:\\Users\\23462\\PycharmProjects\\SDEV265Final\\Windows\\AddAssociate.ui', 'Windows'),
-        ('C:\\Users\\23462\\PycharmProjects\\SDEV265Final\\Windows\\AdminWindow.ui', 'Windows'),
-        ('C:\\Users\\23462\\PycharmProjects\\SDEV265Final\\Windows\\CurrentView.ui', 'Windows'),
-        ('C:\\Users\\23462\\PycharmProjects\\SDEV265Final\\Windows\\LogIn.ui', 'Windows'),
-        ('C:\\Users\\23462\\PycharmProjects\\SDEV265Final\\Windows\\PastWindow.ui', 'Windows'),
-        ('C:\\Users\\23462\\PycharmProjects\\SDEV265Final\\IMGs', 'IMGs'),  # Add this line to include the IMGs folder
+        ('C:\\Users\\SEXES\\PycharmProjects\\SDEV265Final\\Database\\TimesRecord.db', 'Database'),
+        ('C:\\Users\\SEXES\\PycharmProjects\\SDEV265Final\\Windows\\AddAssociate.ui', 'Windows'),
+        ('C:\\Users\\SEXES\\PycharmProjects\\SDEV265Final\\Windows\\AdminWindow.ui', 'Windows'),
+        ('C:\\Users\\SEXES\\PycharmProjects\\SDEV265Final\\Windows\\CurrentView.ui', 'Windows'),
+        ('C:\\Users\\SEXES\\PycharmProjects\\SDEV265Final\\Windows\\PastWindow.ui', 'Windows'),
+        ('C:\\Users\\SEXES\\PycharmProjects\\SDEV265Final\\IMGs', 'IMGs'),  # Add this line to include the IMGs folder
     ],
     hiddenimports=[],
     hookspath=[],

@@ -13,7 +13,7 @@ from Windows.past_window import PastWindow
 from Windows.admin_window import AdminWindow
 from PySide6 import QtCore, QtGui, QtWidgets, QtUiTools
 from PySide6.QtGui import QStandardItemModel, QStandardItem
-from PySide6.QtWidgets import QTableView, QLineEdit, QHeaderView, QHeaderView, QPushButton, QStackedWidget, QWidget
+from PySide6.QtWidgets import QTableView, QLineEdit, QHeaderView, QHeaderView, QPushButton, QStackedWidget, QWidget, QApplication
 from PySide6.QtCore import Qt, QSortFilterProxyModel, QModelIndex, QRegularExpression
 
 
