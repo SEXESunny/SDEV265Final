@@ -26,7 +26,7 @@ class PastWindow(QtWidgets.QMainWindow):
 
         # Normal UI loading logic that all QWindows need.
         loader = QtUiTools.QUiLoader()
-        ui_file_path = resource_path('Windows\\PastWindow.ui')
+        ui_file_path = resource_path('Windows//PastWindow.ui')
         ui_file = QtCore.QFile(ui_file_path)
         ui_file.open(QtCore.QFile.ReadOnly)
         self.ui = loader.load(ui_file, None)

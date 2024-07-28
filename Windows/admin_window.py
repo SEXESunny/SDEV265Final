@@ -22,7 +22,7 @@ class AdminWindow(QtWidgets.QMainWindow):
 
         # Same load file logic that all Qt windows need.
         loader = QtUiTools.QUiLoader()
-        ui_file_path = resource_path('Windows\\AdminWindow.ui')
+        ui_file_path = resource_path('Windows//AdminWindow.ui')
         ui_file = QtCore.QFile(ui_file_path)
         ui_file.open(QtCore.QFile.ReadOnly)
         self.ui = loader.load(ui_file, None)

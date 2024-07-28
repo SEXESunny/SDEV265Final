@@ -29,7 +29,7 @@ class AddAssociateDialog(QDialog):
         # Call the loader
         loader = QtUiTools.QUiLoader()
         # Provide pathing
-        ui_file_path = resource_path('Windows\\AddAssociate.ui')
+        ui_file_path = resource_path('Windows//AddAssociate.ui')
         ui_file = QtCore.QFile(ui_file_path)
         # Create a file in memory based off the path.
         # Debug print statements. Will leave this here for now.

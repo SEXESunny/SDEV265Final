@@ -5,7 +5,6 @@ from Controllers.current_week_controller import CurrentWeekController
 from Windows.current_view_window import CurrentViewWindow
 from Windows.past_window import PastWindow
 from PySide6 import QtCore, QtGui, QtWidgets
-from Windows.log_in_window import LogInWindow
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QStackedWidget
 import resources_rc
@@ -20,6 +19,7 @@ def main():
 
     # Initialize DummyDataController and create tables and populate data
     # dummy_data_controller.populate_dummy_data()
+
     loader = QUiLoader()
     app = QtWidgets.QApplication([])
 

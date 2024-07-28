@@ -23,9 +23,12 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
     # Inherit from the QMainWindow
     def __init__(self):
         super(CurrentViewWindow, self).__init__()
+
+        self.setStyleSheet("background-color: white;") #White color added since there is a weird gap on the left and top borders showing gray space.
+        self.setWindowTitle("Color") # Set the backup color.
         # Normal UI loading logic that all QWindows need.
         loader = QtUiTools.QUiLoader()
-        ui_file_path = resource_path('Windows\\CurrentView.ui')
+        ui_file_path = resource_path('Windows//CurrentView.ui')
         ui_file = QtCore.QFile(ui_file_path)
         if not ui_file.exists():
             print(f"Unable to find {ui_file.fileName()}")
@@ -128,8 +131,10 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
         if checked:
             return """
                 QPushButton {
-                    border: 2px solid #555;
-                    border-radius: 14px;
+                    border: None; 
+                    border-radius: 5px;
+                    border-right: 2.7px solid rgb(43, 43, 43); 
+                    border-bottom: 2.7px solid rgb(43, 43, 43);
                     background-color: #AFE1AF;  /* Pastel green */
                     color: white;
                     letter-spacing: 1px;
@@ -138,12 +143,18 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
                 QPushButton:checked {
                     background-color: #AFE1AF;  /* Pastel green */
                 }
+                QPushButton:hover {
+                    color: rgb(238, 237, 240);  /* Gray */
+                    background-color: #79B679;  /* Dark Pastel green */
+                }
             """
         else:
             return """
                 QPushButton {
-                    border: 2px solid #555;
-                    border-radius: 14px;
+                    border: None; 
+                    border-radius: 5px;
+                    border-right: 2.7px solid rgb(43, 43, 43); 
+                    border-bottom: 2.7px solid rgb(43, 43, 43);
                     background-color: rgb(78, 149, 213);  /* Original blue */
                     color: white;
                     letter-spacing: 1px;
@@ -151,6 +162,10 @@ class CurrentViewWindow(QtWidgets.QMainWindow):
                 }
                 QPushButton:checked {
                     background-color: #AFE1AF;  /* Pastel green */
+                }
+                QPushButton:hover {
+                    color: rgb(238, 237, 240);      /* Gray */
+                    background-color: rgb(44, 112, 160);   /* Luh Darky Bluey */
                 }
             """
 
