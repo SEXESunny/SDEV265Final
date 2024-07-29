@@ -118,7 +118,7 @@ class PastWindow(QtWidgets.QMainWindow):
         scroll_bar.setStyleSheet("QScrollBar::handle:vertical {min-height: 50px;}")
 
         # Set width of the vertical header
-        self.table_view.verticalHeader().setFixedWidth(40)  # Adjust the width value as needed
+        self.table_view.verticalHeader().setFixedWidth(60)  # Adjust the width value as needed
         self.table_view.setColumnWidth(0, 140)
     # Load Data
     def load_tables_data(self):
