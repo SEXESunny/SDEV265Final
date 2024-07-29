@@ -117,8 +117,6 @@ class PastWindow(QtWidgets.QMainWindow):
         # Set a minimum height for the scrollbar thumb to ensure it's always usable
         scroll_bar.setStyleSheet("QScrollBar::handle:vertical {min-height: 50px;}")
 
-        # Optionally, you might want to increase the width for better accessibility
-        scroll_bar.setStyleSheet(scroll_bar.styleSheet() + "QScrollBar:vertical {width: 20px;}")
         # Set width of the vertical header
         self.table_view.verticalHeader().setFixedWidth(40)  # Adjust the width value as needed
         self.table_view.setColumnWidth(0, 140)
