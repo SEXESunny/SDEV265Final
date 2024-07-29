@@ -13,7 +13,7 @@ import sys
 
 def main():
     # Remove the comment lines if you wish to delete the entries
-    # db_path = 'TimesRecord.db'
+    # db_path = 'Database/TimesRecord.db'
     # dummy_data_controller = DummyDataController(db_path)
     # dummy_data_controller.clear_all_associates()
     # dummy_data_controller.clear_all_previous_entries()
